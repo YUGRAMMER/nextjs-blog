@@ -4,6 +4,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Metadata } from "next";
+import ViewCounter from "@/components/ViewCounter";
 
 // ① 빌드 시점에 "어떤 글들이 있는지" 알려줌
 export function generateStaticParams() {
@@ -29,8 +30,11 @@ export default async function PostPage({
         ← 목록으로
       </Link>
       <h1 className="text-3xl font-bold mt-4 mb-2">{post.title}</h1>
-      <p className="text-sm text-gray-500 mb-8">{post.date}</p>
-      <article className="prose prose-neutral max-w-none mt-8">
+      <div className="flex items-center gap-3 text-sm text-gray-500 mb-8">
+        <span>{post.date}</span>
+        <ViewCounter slug={slug} />
+      </div>
+      <article className="prose dark:prose-invert not-first:prose-neutral max-w-none mt-8">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {post.content}
             </ReactMarkdown>

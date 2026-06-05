@@ -1,13 +1,23 @@
 import Link from "next/link";
 import { getPosts } from "@/lib/posts";
+import PostSearch from "@/components/PostSearch";
+import { getAllViews } from "@/lib/views";
 
 export default function BlogPage() {
   const posts = getPosts();   // 컴포넌트에서 데이터 직접 가져옴
+  const views = getAllViews();
 
+  // 각 글에 조회수를 붙여줌
+  const postsWithViews = posts.map((post) => ({
+    ...post,
+    views: views[post.slug] ?? 0,
+  })).sort((a, b) => b.views - a.views);
+  
   return (
-    <main className="max-w-2xl mx-auto px-6 py-12">
+    <main className="w-full max-w-2xl mx-auto px-6 py-12">
       <h1 className="text-3xl font-bold mb-8">블로그</h1>
-      <ul className="space-y-6">
+      <PostSearch posts={postsWithViews}/>
+      {/*<ul className="space-y-6">
         {posts.map((post) => (
           <li key={post.slug}>
             <Link href={`/blog/${post.slug}`} className="group">
@@ -19,7 +29,7 @@ export default function BlogPage() {
             </Link>
           </li>
         ))}
-      </ul>
+      </ul>*/}
     </main>
   );
 }

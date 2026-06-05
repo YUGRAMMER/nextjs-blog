@@ -9,6 +9,7 @@ export type PostMeta = {
   title: string;
   date: string;
   summary: string;
+  views?: number;   // ← 추가 (목록에서 쓰임)
 };
 export type Post = PostMeta & { content: string };
 
