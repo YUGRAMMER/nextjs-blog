@@ -34,7 +34,7 @@ export default async function PostPage({
         <span>{post.date}</span>
         <ViewCounter slug={slug} />
       </div>
-      <article className="prose dark:prose-invert not-first:prose-neutral max-w-none mt-8">
+      <article className="prose dark:prose-invert max-w-none mt-8">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {post.content}
             </ReactMarkdown>
